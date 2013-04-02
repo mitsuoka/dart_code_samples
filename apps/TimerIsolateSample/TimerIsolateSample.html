@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TimerIsolateSample</title>
+  </head>
+  <body>
+    <h1 style="font:arial,sans-serif">Timer Isolate Sample</h1>
+    <h2 id="timerCount" font:arial,sans-serif>dart is not running</h2>
+    <div style="font:15px arial,sans-serif">
+      <button id="b0"; style="background-color:transparent; width: 100px">  reset  </button><br>
+      <button id="b1"; style="background-color:transparent; width: 100px">  run  </button><br>
+      <button id="b2"; style="background-color:transparent; width: 100px">  hold  </button><br><br>
+      Trip settings (mS) : <span style="font-family: Courier New;"><p id="trips" ></p></span>
+      Log : <p id="log"></p>
+    </div>
+    <script type="application/dart" src="TimerIsolateSample.dart"></script>
+    <script src="packages/browser/dart.js"></script>
+    <!-- place the dart.js bootstrap code into the packages/browser directory -->
+  </body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <link rel="stylesheet"
+  href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css">
+    <title>web_ui sample app</title>
+</head>
+<body>
+  <div class="well">
+    <button on-click="increment()">Click me</button>
+    <span>(click count: {{count}})</span>
+  </div>
+  <script type="application/dart">
+    int count = 0;
+    void increment() { count++; }
+    main() {}
+  </script>
+</body>
+</html>

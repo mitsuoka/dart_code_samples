@@ -1,0 +1,92 @@
+---
+build.dart --machine --changed=web\webuitest.dart.js --changed=web\webuitest.dart.js.deps --changed=web\webuite...
+Total time                                                   --  25 ms
+build.dart finished [726 ms]
+
+---
+build.dart --machine --changed=web\webuitest.html
+[{"method":"mapping","params":{"from":"web/webuitest.html","to":"web\out\webuitest.html"}}]
+Total time spent on web/webuitest.html                       -- 534 ms
+Total time                                                   -- 572 ms
+build.dart finished [1754 ms]
+
+---
+build.dart --machine --changed=web\out\webuitest.html --changed=web\out\webuitest.html.dart --changed=web\out\w...
+Total time                                                   --  32 ms
+build.dart finished [980 ms]
+
+---
+build.dart --machine --removed=web\webuitest.css --removed=web\webuitest.dart --removed=web\webuitest.dart.js -...
+[{"method":"mapping","params":{"from":"web/webuitest.html","to":"web\out\webuitest.html"}}]
+Total time spent on web/webuitest.html                       -- 358 ms
+Total time                                                   -- 391 ms
+build.dart finished [1235 ms]
+
+---
+build.dart --machine --changed=web\out\webuitest.html --changed=web\out\webuitest.html.dart --changed=web\out\w...
+Total time                                                   --  28 ms
+build.dart finished [780 ms]
+
+---
+build.dart --machine --removed=web\xclickcounter.dart --removed=web\xclickcounter.html
+[{"method":"mapping","params":{"from":"web/webuitest.html","to":"web\out\webuitest.html"}}]
+Total time spent on web/webuitest.html                       -- 352 ms
+Total time                                                   -- 387 ms
+build.dart finished [1299 ms]
+
+---
+build.dart --machine --changed=web\out\webuitest.html --changed=web\out\webuitest.html.dart --changed=web\out\w...
+Total time                                                   --  27 ms
+build.dart finished [883 ms]
+
+---
+build.dart --machine --changed=web\webuitest.html
+[{"method":"mapping","params":{"from":"web/webuitest.html","to":"web\out\webuitest.html"}}]
+Total time spent on web/webuitest.html                       -- 365 ms
+Total time                                                   -- 401 ms
+build.dart finished [1182 ms]
+
+---
+build.dart --machine --changed=web\out\webuitest.html --changed=web\out\webuitest.html.dart --changed=web\out\w...
+Total time                                                   --  27 ms
+build.dart finished [774 ms]
+
+---
+build.dart --machine --changed=web\out\webuitest.html_bootstrap.dart.js --changed=web\out\webuitest.html_bootst...
+Total time                                                   --  25 ms
+build.dart finished [736 ms]
+
+---
+build.dart --machine --changed=pubspec.lock
+Total time                                                   --  15 ms
+build.dart finished [1545 ms]
+
+---
+build.dart --machine --full
+Unable to open file: C:/dart_applications_github/dart_samples/apps/WebUITest/packages/web_ui/component_build.dart'file:///C:/dart_applications_github/dart_samples/apps/WebUITest/build.dart': Error: line 2 pos 1: library handler failed
+import 'package:web_ui/component_build.dart';
+^
+build.dart finished [156 ms]
+
+---
+build.dart --machine --changed=pubspec.lock
+Total time                                                   --  15 ms
+build.dart finished [733 ms]
+
+---
+build.dart --machine --changed=web\webuitest.html
+[{"method":"mapping","params":{"from":"web/webuitest.html","to":"web\out\webuitest.html"}}]
+Total time spent on web/webuitest.html                       -- 358 ms
+Total time                                                   -- 374 ms
+build.dart finished [1092 ms]
+
+---
+build.dart --machine --changed=web\out\webuitest.html --changed=web\out\webuitest.html.dart --changed=web\out\w...
+Total time                                                   --  15 ms
+build.dart finished [679 ms]
+
+---
+build.dart --machine --changed=web\out\webuitest.html_bootstrap.dart.js --changed=web\out\webuitest.html_bootst...
+Total time                                                   --  15 ms
+build.dart finished [717 ms]
+

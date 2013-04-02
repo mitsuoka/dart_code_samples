@@ -1,0 +1,60 @@
+<!--
+  Request StatusLineTest.dart server to sent a status line 
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ 
+  <head>
+    <title>StatusLineTest</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+ 
+  <body>
+    <H1>Request to send a status line</H1>
+    <br>For details, refer to <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10">RFC-2616 Sec. 10</a>.<br><br>
+    <form method="get" action="http://localhost:8080/StatusLineTest">
+      <input type="radio" name="raioButton" value="100" /> 100 Continue<br>
+      <input type="radio" name="raioButton" value="101" /> 101 Switching Protocols<br>
+      <input type="radio" name="raioButton" value="200" /> 200 OK<br>
+      <input type="radio" name="raioButton" value="201" /> 201 Created<br>
+      <input type="radio" name="raioButton" value="202" /> 202 Accepted<br>
+      <input type="radio" name="raioButton" value="203" /> 203 Non-Authoritative Information<br>
+      <input type="radio" name="raioButton" value="204" /> 204 No Content<br>
+      <input type="radio" name="raioButton" value="205" /> 205 Reset Content<br>
+      <input type="radio" name="raioButton" value="206" /> 206 Partial Content<br>
+      <input type="radio" name="raioButton" value="300" /> 300 Multiple Choices<br>
+      <input type="radio" name="raioButton" value="301" /> 301 Moved Permanently<br>
+      <input type="radio" name="raioButton" value="302" /> 302 Found<br>
+      <input type="radio" name="raioButton" value="303" /> 303 See Other<br>
+      <input type="radio" name="raioButton" value="304" /> 304 Not Modified<br>
+      <input type="radio" name="raioButton" value="305" /> 305 Use Proxy<br>
+      <input type="radio" name="raioButton" value="307" /> 307 Temporary Redirect<br>
+      <input type="radio" name="raioButton" value="400" /> 400 Bad Request<br>
+      <input type="radio" name="raioButton" value="401" /> 401 Unauthorized<br>
+      <input type="radio" name="raioButton" value="403" /> 403 Forbidden<br>
+      <input type="radio" name="raioButton" value="404" /> 404 Not Found<br>
+      <input type="radio" name="raioButton" value="405" /> 405 Method Not Allowed<br>
+      <input type="radio" name="raioButton" value="406" /> 406 Not Acceptable<br>
+      <input type="radio" name="raioButton" value="407" /> 407 Proxy Authentication Required<br>
+      <input type="radio" name="raioButton" value="408" /> 408 Request Timeout<br>
+      <input type="radio" name="raioButton" value="409" /> 409 Conflict<br>
+      <input type="radio" name="raioButton" value="410" /> 410 Gone<br>
+      <input type="radio" name="raioButton" value="411" /> 411 Length Required<br>
+      <input type="radio" name="raioButton" value="412" /> 412 Precondition Failed<br>
+      <input type="radio" name="raioButton" value="413" /> 413 Request Entity Too Large<br>
+      <input type="radio" name="raioButton" value="414" /> 414 Request-URI Too Long<br>
+      <input type="radio" name="raioButton" value="415" /> 415 Unsupported Media Type<br>
+      <input type="radio" name="raioButton" value="416" /> 416 Requested Range Not Satisfiable<br>
+      <input type="radio" name="raioButton" value="417" /> 417 Expectation Failed<br>
+      <input type="radio" name="raioButton" value="500" /> 500 Internal Server Error<br>
+      <input type="radio" name="raioButton" value="501" /> 501 Not Implemented<br>
+      <input type="radio" name="raioButton" value="502" /> 502 Bad Gateway<br>
+      <input type="radio" name="raioButton" value="503" /> 503 Service Unavailable<br>
+      <input type="radio" name="raioButton" value="504" /> 504 Gateway Timeout<br>
+      <input type="radio" name="raioButton" value="505" /> 505 HTTP Version Not Supported<br>
+      <br>
+      <input type="submit" value="Submit using GET" />
+    </form>
+  </body>
+  
+</html>
