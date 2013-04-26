@@ -29,12 +29,13 @@ funcC() {
   int x = 1 % 0;
 }
 
-// AsyncError
+// AsyncError (Bad state: More than one element)
 funcD() {
   final testData = ['a', 'b'];
   var stream = new Stream.fromIterable(testData);
   stream.single.then((value){})
     .catchError((er){
-      print('AsyncError : ${er.error}');
+      print('AsyncError : ${er}');
+      print('Stack Trace : ${getAttachedStackTrace(er)}');
       });
 }

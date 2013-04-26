@@ -1,0 +1,4 @@
+name: codes_pubspec
+description: set external libraries here
+dependencies:
+  meta: any

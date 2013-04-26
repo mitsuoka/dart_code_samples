@@ -5,7 +5,10 @@ main() {
   var stream = new Stream.fromIterable(testData);
   var broadcastStream = stream.asBroadcastStream();
   broadcastStream.single.then((value) => print('stream.single: $value'))
-    .catchError((AsyncError err){print('Async error : $err');});
+    .catchError((err){
+       print('AsyncError : ${err}');
+       print('Stack Trace : ${getAttachedStackTrace(err)}');
+     });
   broadcastStream.first.then((value) => print('stream.first: $value'));     // a
   broadcastStream.last.then((value) => print('stream.last: $value'));       // e
   broadcastStream.isEmpty.then((value) => print('stream.isEmpty: $value')); // false

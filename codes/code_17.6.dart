@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:async';
 final fileName = 'testData.txt';
-final String testData = '''安倍晋三首相は２６日午前、政権発足から３カ月を迎えたことについて'
+final String testData = '''安倍晋三首相は２６日午前、政権発足から３カ月を迎えたことについて、
   「今までと同じように結果を出していくことに全力を尽くしていきたい」と述べた。''';
 
 main() {
@@ -22,12 +22,13 @@ main() {
            print('Readbacked data : $data');
            f.close();
         })
-        .catchError((AsyncError err){
-          print('Read error : $err');
+        .catchError((err){
+          print('AsyncError : ${err}');
+          print('Stack Trace : ${getAttachedStackTrace(err)}');
           f.close();
         });
     })
-    .catchError((AsyncError err) {
+    .catchError((err) {
       print('Open error : $err');
     });
 }

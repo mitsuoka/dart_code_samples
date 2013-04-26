@@ -1,4 +1,4 @@
-import 'package:dart-sdk/pkg/meta/lib/meta.dart';
+import 'package:meta/meta.dart';
 
 class A {
   doThis() => print('doThis');

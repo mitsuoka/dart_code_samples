@@ -1,4 +1,4 @@
-import 'package:dart-sdk/pkg/meta/lib/meta.dart';
+import 'package:meta/meta.dart';
 
 @deprecated void funcA() {
  print('Hi');

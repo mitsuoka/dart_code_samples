@@ -90,3 +90,46 @@ build.dart --machine --changed=web\out\webuitest.html_bootstrap.dart.js --change
 Total time                                                   --  15 ms
 build.dart finished [717 ms]
 
+---
+build.dart --machine --full
+[{"method":"mapping","params":{"from":"web/webuitest.html","to":"web\out\webuitest.html"}}]
+Total time spent on web/webuitest.html                       -- 296 ms
+Total time                                                   -- 356 ms
+build.dart finished [1600 ms]
+
+---
+build.dart --machine --changed=web\out\webuitest.html --changed=web\out\webuitest.html.dart --changed=web\out\w...
+Total time                                                   --  15 ms
+build.dart finished [749 ms]
+
+---
+build.dart --machine --changed=pubspec.lock
+Total time                                                   --  31 ms
+build.dart finished [811 ms]
+
+---
+build.dart --machine --full
+[{"method":"mapping","params":{"from":"web/webuitest.html","to":"web\out\webuitest.html"}}]
+Total time spent on web/webuitest.html                       -- 202 ms
+Total time                                                   -- 218 ms
+build.dart finished [780 ms]
+
+---
+build.dart --machine --changed=web\out\webuitest.html --changed=web\out\webuitest.html.dart --changed=web\out\w...
+Total time                                                   --  15 ms
+build.dart finished [530 ms]
+
+---
+build.dart --machine --full
+'package:analyzer_experimental/src/generated/java_core.dart': Error: line 255 pos 30: cannot resolve class name 'Collection' from 'ListWrapper'
+class ListWrapper<E> extends Collection<E> implements List<E> {
+                             ^
+build.dart finished [1304 ms]
+
+---
+build.dart --machine --full
+'package:analyzer_experimental/src/generated/java_core.dart': Error: line 255 pos 30: cannot resolve class name 'Collection' from 'ListWrapper'
+class ListWrapper<E> extends Collection<E> implements List<E> {
+                             ^
+build.dart finished [926 ms]
+

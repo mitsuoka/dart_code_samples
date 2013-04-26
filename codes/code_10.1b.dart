@@ -23,7 +23,7 @@ class NumberSyntax {
 
     1.1234e+444;
     -1.1234e+444;
-    +1.1234e+444;
+//  +1.1234e+444; // no unary plus operator in Dart
 
     0x0; 0x1; 0x12; 0x123; 0x12345;
     0X0; 0X1; 0X12; 0X123; 0X12345;

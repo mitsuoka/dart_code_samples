@@ -143,9 +143,10 @@ StringBuffer makeSafe(StringBuffer b) {
   for (int i = 0; i < s.length; i++){
     if (s[i] == '&') { b.write('&amp;');
     } else if (s[i] == '"') { b.write('&quot;');
-    } else if (s[i] == "'") { b.write('&#39;');
+    } else if (s[i] == "'") { b.write('&#x27;');
     } else if (s[i] == '<') { b.write('&lt;');
     } else if (s[i] == '>') { b.write('&gt;');
+    } else if (s[i] == '/') { b.write('&#x2F;');
     } else { b.write(s[i]);
     }
   }

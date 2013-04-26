@@ -12,7 +12,7 @@ main() {
     // complete the stream if value is 'end'
     else if (value == 'end') sink.close();
     // trigger error for the illegal value
-    else sink.addError(new AsyncError('$value is not a number'));
+    else sink.addError(new Error('$value is not a number'));
     },
   handleDone: (sink) => sink.close(),
   handleError: (err, sink) => sink.addError(err)
