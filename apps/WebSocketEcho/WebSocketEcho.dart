@@ -2,6 +2,7 @@
 // Source : http://blog.sethladd.com/2012/04/dart-server-supports-web-sockets.html#disqus_thread
 // you can connect to ws://localhost:8000/ws
 // Feb. 2013, revised to incorporate redesigned dart:io v2 library
+// April 2013, WebSocket.send -> add API change fixed
 
 import 'dart:io';
 
@@ -22,7 +23,7 @@ wsHandler(WebSocket ws) {
   print('new connection : ${ws.hashCode}');
   ws.listen((message) {
       print('message is ${message}');
-      ws.send('Echo: ${message}');
+      ws.add('Echo: ${message}');
     }, onDone: (() {
       print('connection ${ws.hashCode} closed with ${ws.closeCode} for ${ws.closeReason}');
     })
