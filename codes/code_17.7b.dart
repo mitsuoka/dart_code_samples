@@ -12,7 +12,7 @@ main() {
     // complete the stream if value is 'end'
     else if (value == 'end') sink.close();
     // trigger error for the illegal value
-    else sink.addError(new Error('$value is not a number'));
+    else sink.addError(new ArgumentError('$value is not a number'));
     },
   handleDone: (sink) => sink.close(),
   handleError: (err, sink) => sink.addError(err)
@@ -20,7 +20,7 @@ main() {
 
   // transform the stream and listen to its output
   stream.transform(transformer).listen((value) => print("$value"),
-    onError:(err) => print('$err${err.stackTrace}'),
+    onError:(err) => print('$err'),
     onDone:() => print('Done!')
   );
 }

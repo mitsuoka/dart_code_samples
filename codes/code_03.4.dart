@@ -21,4 +21,7 @@ connectToServer(String authKey, [ip = '127.0.0.1', port = 8080]) {
 Hello Bill!
 Hi Tom!
 Good Morning Alia!!
+aunthKey = secret, ip = 127.0.0.1, port = 8080
+aunthKey = secret, ip = 1.2.3.4, port = 8080
+aunthKey = secret, ip = 1.2.3.4, port = 9999
 */

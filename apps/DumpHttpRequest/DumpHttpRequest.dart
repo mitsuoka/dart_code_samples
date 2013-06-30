@@ -104,7 +104,7 @@ request.uri.path : ${request.uri.path}
 request.uri.query : ${request.uri.query}
 request.uri.queryParameters :
 ''');
-  request.queryParameters.forEach((key, value){
+  request.uri.queryParameters.forEach((key, value){
     sb.write("  ${key} : ${value}\n");
   });
   sb.write('''request.cookies :

@@ -19,6 +19,8 @@ dart_code_samples
 
  - [GooSushi](https://github.com/mitsuoka/GooSushi) : 「HTTPサーバ (HttpServer)」の章の「セッション管理」及び「ショッピング・カートのアプリケーション・サーバ」の節
 
+ - [https_servers](https://github.com/mitsuoka/https_servers) : 「HTTPSサーバ (HTTPS Servers)」の章の「 簡単なHTTPSサーバの実験」の節
+
  - [WebSocket Chat Server](https://github.com/mitsuoka/websocket_chat_server) : 「WebSocketサーバ (WebSocket Servers)」の章の「チャット・サーバ」の節
 
 

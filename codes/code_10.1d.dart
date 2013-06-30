@@ -1,21 +1,7 @@
-main() {
-  var a = true;
-  bool b = true;
-  bool c = false;
-  bool d = null;
-  String s = 'abc';
-  if (a) print('a is $a');
-  if (b) print('b is $b');
-  if (c == false) print('c is $c');
-  if (d == null) print('d is $d');
-  if (d == false) print('d is $d');
-  if (s != true) print ('s is $s');
-  }
+var str = "654a1661a99aff";
 
-/*
-a is true
-b is true
-c is false
-d is null
-s is abc
-*/
+main() {
+  print(int.parse(str, radix:16));
+}
+
+// 28510432636017407

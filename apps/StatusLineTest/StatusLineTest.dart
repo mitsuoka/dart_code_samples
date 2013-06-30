@@ -37,7 +37,7 @@ void main() {
 void requestReceivedHandler(HttpRequest request) {
   HttpResponse response = request.response;
   logRequest(request);
-  int status = int.parse(request.queryParameters['raioButton']); // get status code from the query
+  int status = int.parse(request.uri.queryParameters['raioButton']); // get status code from the query
 
   List statusCode;
   if (status == 100) { statusCode = [HttpStatus.CONTINUE, '100 Continue', 'The client SHOULD continue with its request.'];
@@ -115,7 +115,7 @@ request.uri.path : ${request.uri.path}
 request.uri.query : ${request.uri.query}
 request.uri.queryParameters :
 ''');
-  request.queryParameters.forEach((key, value){
+  request.uri.queryParameters.forEach((key, value){
     sb.write("  ${key} : ${value}\n");
   });
   sb.write('''request.cookies :

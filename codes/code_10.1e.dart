@@ -1,13 +1,21 @@
 main() {
-  try {
-    var x = 1;
-    var y = 1;
-    if(x-y == 0) print(x - y);
-    if(x - y) print(x - y);
-  } on Exception catch(e){print(e);}
-}
+  var a = true;
+  bool b = true;
+  bool c = false;
+  bool d = null;
+  String s = 'abc';
+  if (a) print('a is $a');
+  if (b) print('b is $b');
+  if (c == false) print('c is $c');
+  if (d == null) print('d is $d');
+  if (d == false) print('d is $d');
+  if (s != true) print ('s is $s');
+  }
+
 /*
-0
-Unhandled exception:
-type 'int' is not a subtype of type 'bool' of 'boolean expression'.
+a is true
+b is true
+c is false
+d is null
+s is abc
 */
