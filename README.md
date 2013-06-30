@@ -25,7 +25,7 @@ dart_code_samples
 
 
 ### 使用法 ###
-Dart EditorでFile＞Open Existing Folder＞で必要なフォルダを取り込んでください。
+Download ZIPボタンを押してダウンロード・解凍し、Dart EditorでFile＞Open Existing Folder＞で必要なフォルダを取り込んでください。詳細は解説書の最後にある「本資料に含まれているプログラムのダウンロード」の章に記されています。
 
 ### License ###
 This sample is licensed under [MIT License][MIT].
