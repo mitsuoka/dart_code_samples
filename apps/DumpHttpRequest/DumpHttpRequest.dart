@@ -33,6 +33,7 @@ void main() {
           if (request.uri.path == REQUEST_PATH) {
             requestReceivedHandler(request);
           }
+          else request.response.close();
         });
     print("Serving $REQUEST_PATH on http://${HOST}:${PORT}.");
   });
