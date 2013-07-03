@@ -14,6 +14,7 @@
   Feb. 2013, Revised to incorporate newly added dart:async library.
   Feb. 2013, Revised to incorporate revised dart:io library.
   March 2013, API changes (String and HttpResponse) fixed
+  July 2013, Modified main() to ruggedize.
 */
 
 import "dart:async";
@@ -23,19 +24,24 @@ import "dart:utf" as utf;
 final HOST = "127.0.0.1";
 final PORT = 8080;
 final REQUEST_PATH = "/DumpHttpRequest";
-final LOG_REQUESTS = true;
+final LOG_REQUESTS = false;
 
 void main() {
   HttpServer.bind(HOST, PORT)
   .then((HttpServer server) {
     server.listen(
         (HttpRequest request) {
+          request.response.done.then((d){
+              print("sent response to the client for request : ${request.uri}");
+            }).catchError((e) {
+              print("Error occured while sending response: $e");
+            });
           if (request.uri.path == REQUEST_PATH) {
             requestReceivedHandler(request);
           }
           else request.response.close();
         });
-    print("Serving $REQUEST_PATH on http://${HOST}:${PORT}.");
+    print("${new DateTime.now()} : Serving $REQUEST_PATH on http://${HOST}:${PORT}.\n");
   });
 }
 

@@ -12,6 +12,7 @@
 // October 2012, incorporated M1 changes
 // February 2013, incorporated M3 changes
 // March 2013, HttpResponse API change fixed
+// July 2013, Modified main() to ruggedize.
 
 import "dart:io";
 import 'dart:math' as Math;
@@ -26,12 +27,17 @@ void main() {
   .then((HttpServer server) {
     server.listen(
         (HttpRequest request) {
+          request.response.done.then((d){
+              print("${new DateTime.now()} : sent response to the client for request : ${request.uri}");
+            }).catchError((e) {
+              print("Error occured while sending response: $e");
+            });
           if (request.uri.path == REQUEST_PATH) {
             requestReceivedHandler(request);
           }
           else request.response.close();
         });
-    print("Serving $REQUEST_PATH on http://${HOST}:${PORT}.");
+    print("${new DateTime.now()} : Serving $REQUEST_PATH on http://${HOST}:${PORT}.\n");
   });
 }
 
