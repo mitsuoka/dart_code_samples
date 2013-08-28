@@ -15,10 +15,12 @@
   Feb. 2013, Revised to incorporate revised dart:io library.
   March 2013, API changes (String and HttpResponse) fixed
   July 2013, Modified main() to ruggedize.
+  Aug. 2913, API change (removed StringDecoder and added dart:convert) fixed
 */
 
 import "dart:async";
 import "dart:io";
+import "dart:convert";
 import "dart:utf" as utf;
 
 final HOST = "127.0.0.1";
@@ -52,7 +54,7 @@ void requestReceivedHandler(HttpRequest request) {
   if (request.method == "GET") { completer.complete("query string data received");
   } else if (request.method == "POST") {
     request
-      .transform(new StringDecoder())
+      .transform(UTF8.decoder) // decode the body as UTF
       .listen(
           (String str){bodyString = bodyString + str;},
           onDone: (){
