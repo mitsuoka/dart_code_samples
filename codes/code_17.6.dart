@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:convert'; // Sept. 30 2013, added this new library
 import 'dart:async';
 final fileName = 'testData.txt';
 final String testData = '''安倍晋三首相は２６日午前、政権発足から３カ月を迎えたことについて、
@@ -8,7 +9,7 @@ main() {
   // create a file to write
   File file = new File(fileName);
   // get IOSink to write data
-  IOSink fileSink = file.openWrite(mode: FileMode.WRITE, encoding: Encoding.UTF_8);
+  IOSink fileSink = file.openWrite(mode: FileMode.WRITE, encoding: UTF8);
   // and write the data using StringSink\write
   fileSink.write(testData);
   print('Done writing $file');

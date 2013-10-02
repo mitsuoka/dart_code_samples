@@ -1,3 +1,4 @@
+// Run this code in production mode and checked mode.
 class A<T> {
   final T a;
   A(T this.a);
