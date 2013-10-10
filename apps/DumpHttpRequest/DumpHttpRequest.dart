@@ -15,13 +15,13 @@
   Feb. 2013, Revised to incorporate revised dart:io library.
   March 2013, API changes (String and HttpResponse) fixed
   July 2013, Modified main() to ruggedize.
-  Aug. 2913, API change (removed StringDecoder and added dart:convert) fixed
+  Aug. 2013, API change (removed StringDecoder and added dart:convert) fixed
+  Oct. 2013, API change (dart:utf removed) fixed
 */
 
 import "dart:async";
 import "dart:io";
 import "dart:convert";
-import "dart:utf" as utf;
 
 final HOST = "127.0.0.1";
 final PORT = 8080;
@@ -182,7 +182,7 @@ String urlDecode(String s){
      else { ol.add(s[i].codeUnitAt(0));
      }
    }
-  return utf.decodeUtf8(ol);
+  return UTF8.decode(ol);
 }
 
 // URL encoder encodes string into url encoded utf-8 bytes
@@ -191,7 +191,7 @@ String urlDecode(String s){
 List<int> urlEncode(String s) {
   int i, p, q;
   var ol = new List<int>();
-  List<int> il = utf.encodeUtf8(s);
+  List<int> il = UTF8.encode(s);
   for (i = 0; i < il.length; i++) {
     if (il[i] == 0x20) { ol.add(0x2b);  // convert sp to +
     } else if (il[i] == 0x2a || il[i] == 0x2d || il[i] == 0x2e || il[i] == 0x5f) { ol.add(il[i]);  // do not convert
