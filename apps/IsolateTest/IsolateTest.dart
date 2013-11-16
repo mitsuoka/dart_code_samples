@@ -5,87 +5,112 @@
 // October 2012, incorporated M1 changes
 // January 2013, incorporated API changes
 // February 2013,  incorporated API changes
+// November 2013, incorporated Isolate API breaking changes
 
-import 'dart:html';
 import 'dart:async';
-import 'dart:isolate' as isolate;
-import 'dart:math' as Math;
+import 'dart:isolate';
+import 'dart:math';
+import 'dart:html'; // enable this to run on  Dartium or Dert2JS
+
+// isolate status
+final CONNECTING = 1;
+final CONNECTED = 2;
+final STOPPED = 3;
 
 // top level child isolate function
-childIsolate() {
+childIsolate(SendPort port) {
+  // status
+  var status = CONNECTING;
   // long-lived ports
-  var receivePort;
-  var sendPort;
+  var receivePort = new ReceivePort();
+  var sendPort = port;
+  log('child started');
+  // after link establishment, do things here using receivePort and sendPort like:
+  run([msg = null]){
+    if (msg != null) log('child received : $msg');
+    if (msg == null) { // active transmission
+      sendPort.send({'one way message from child':[1,2,3,5]}); // send Map with List
+    }
+    else if (msg is List) {  // echo back the List with added elements
+      msg.addAll([', and cos pi is ', cos(PI)]);
+      sendPort.send(msg);
+    }
+    else if (msg == 'quit') { // close command
+      status = STOPPED;
+      receivePort.close();
+      log('child closed it\'s receive port');
+    }
+    else {
+      sendPort.send('child echoed : $msg');  // simple echo
+    }
+  }
   // establish communication link
-  receivePort = isolate.port;
-  var completer = new Completer();
-  Future linkEstablished = completer.future;
-  receivePort.receive((msg, replyTo){
-    sendPort = replyTo;
-    replyTo.send('hello', receivePort.toSendPort());
-    completer.complete(true);
-  });
-  linkEstablished.then((value){
-    // established, then next state
-    // do things here using receivePort and sendPort like:
-    sendPort.send({'one way message from the child':[1,2,3,5]}); // send Map with List
-    receivePort.receive((msg, replyTo){ // send return message
-      if (msg is List) {  // echo back the List with added elements
-        msg.addAll([', and cos pi is ', Math.cos(Math.PI)]);
-        sendPort.send(msg);
-      }
-      else { sendPort.send('child echoed : $msg');
-      }
+  sendPort.send(receivePort.sendPort);
+  linkEstablish(msg){
+    if (msg == 'ping') {
+      log('child received : $msg');
+      sendPort.send('pong');
+      status = CONNECTED;
+      run();
+    }
+  }
+  // receive messages and dispatch them
+  receivePort.listen((msg){
+    if (status == CONNECTING) linkEstablish(msg);
+    else if (status == CONNECTED) run(msg);
     });
-//    do{} while (true);  // for thread test
-  });
 }
 
 // parent isolate class
 class ParentIsolate {
+  // status
+  var status = CONNECTING;
   // long-lived ports
-  var receivePort;
-  var sendPort;
-  // main process
-  void run() {
-    // communication link establishment
-    Completer completer = new Completer();
-    Future linkEstablished = completer.future;
-    var isComplete = false;
-    sendPort = isolate.spawnFunction(childIsolate);
-    log('spawned workerIsolate');
-    receivePort = new isolate.ReceivePort();
-    sendPort.send('hi', receivePort.toSendPort());  // tell the new send port
-    receivePort.receive((msg, replyTo){
-      log('initial state message received by parent : $msg');
-      if (! isComplete){
-        completer.complete(true);
-        isComplete = true;
-      };
-    });
-    linkEstablished.then(nextState);
-    log('end of IsolateTest.run');
+  var receivePort = new ReceivePort();
+  SendPort sendPort;
+  // establish communication link
+  linkEstablish(msg){
+    if (msg is SendPort) {
+      sendPort = msg;
+      sendPort.send('ping');
+    }
+    else if (msg == 'pong') {
+      log('main received : $msg');
+      log('link established');
+      status = CONNECTED;
+      run();
+    }
   }
-  // link established, proceed to the next state
-  // do things here using receivePort and sendPort like:
-  nextState(value) {
-    log('link established');
-    receivePort.receive((msg, replyTo){
-      log('state 2 message received by the parent : $msg');});
-    sendPort.send('one way message from the parent');
-    var myList = ['pi is ' , Math.PI];
-    sendPort.send(myList);  // you can send List, Map and other object also
-    // for thread test
-//    window.setInterval((){log('thread testing...');}, 1000);
+  // link established, then do things here
+  run([msg = null]) {
+    if (msg == null) { // active transmission
+      sendPort.send('one way message from parent');
+      var myList = ['pi is ' , PI];
+      sendPort.send(myList);  // you can send List, Map and other object also
+      sendPort.send('quit');  // send 'quit' to close the child receive port
+    }
+    else log('main received : $msg');  // response transmission
+  }
+  // main process
+  void main() {
+    // communication link establishment
+    Isolate.spawn(childIsolate, receivePort.sendPort).then((iso){
+      log('spawned workerIsolate #${iso.hashCode}');
+    });  // receive messages and dispatch them
+    receivePort.listen((msg){
+      if (status == CONNECTING) linkEstablish(msg);
+      else if (status == CONNECTED) run(msg);
+    });
   }
 }
 
 main() {
-  new ParentIsolate().run();
+  new ParentIsolate().main();
 }
 
 void log(String msg) {
-  String timestamp = new DateTime.now().toString();
+  String timestamp = new DateTime.now().toString().substring(11);
   print('$timestamp : $msg');
+  //enable next line to run on Dartium or Dart2JS
   document.body.nodes.add(new Element.html('<div>$msg</div>'));
 }

@@ -1,21 +1,9 @@
-/*
- * Dart code sample for concurrency tests.
- * Evaluate performances in the following cases:
- *  1) Only the parent computes fib() Fibonacci function (comment out lines 40 and 41)
- *  2) Parent uses fib() and the child uses fibo() function (comment out line 41)
- *  2) Parent and child share the same fib() function (comment out line 40)
- * Tested on Dartium.
- * Place dart.js bootstrup code in the packages/browser holder
- * July 2012, by Cresc corp.
- * October 2012, incorporated M1 changes.
- * January 2013, incorporated API changes.
- * February 2013, incorporated API change (Date -> DateTime).
- * november 2013, incorporated dart:isolate breaking changes
- */
+// Dart code sample for establishing communications link between isolates
 
-import 'dart:html';
 import 'dart:async';
 import 'dart:isolate';
+import 'dart:math';
+//import 'dart:html'; // enable this to run on  Dartium or Dert2JS
 
 // isolate status
 final CONNECTING = 1;
@@ -29,18 +17,22 @@ childIsolate(SendPort port) {
   // long-lived ports
   var receivePort = new ReceivePort();
   var sendPort = port;
+  log('child started');
 
   // after link establishment, do things here using receivePort and sendPort like:
   run([msg = null]){
+    if (msg != null) log('child received : $msg');
     if (msg == null) { // active transmission
-      sendPort.send('${new DateTime.now().toString().substring(11)}'
-                    ' : child started Fibonacci computing');
-      int i = 40;
-      int y;
-      y = fibo(i);
-//  y = fib(i);
-      sendPort.send('${new DateTime.now().toString().substring(11)}'
-                    ' : child finished Fib(${i}) = ${y}');
+      sendPort.send({'one way message from child':[1,2,3,5]}); // send Map with List
+    }
+    else if (msg is List) {  // echo back the List with added elements
+      msg.addAll([', and cos pi is ', cos(PI)]);
+      sendPort.send(msg);
+    }
+    else if (msg == 'quit') { // close command
+      status = STOPPED;
+      receivePort.close();
+      log('child closed it\'s receive port');
     }
     else {
       sendPort.send('child echoed : $msg');  // simple echo
@@ -64,6 +56,7 @@ childIsolate(SendPort port) {
     else if (status == CONNECTED) run(msg);
     });
 }
+
 
 // parent isolate class
 class ParentIsolate {
@@ -90,10 +83,10 @@ class ParentIsolate {
   // link established, then do things here
   run([msg = null]) {
     if (msg == null) { // active transmission
-      log('parent started Fibonacci computing');
-      int i = 40;
-      int y = fib(i);
-      log('parent finished Fib(${i}) = ${y}');
+      sendPort.send('one way message from parent');
+      var myList = ['pi is ' , PI];
+      sendPort.send(myList);  // you can send List, Map and other object also
+      sendPort.send('quit');  // send 'quit' to close the child receive port
     }
     else log('main received : $msg');  // response transmission
   }
@@ -112,22 +105,14 @@ class ParentIsolate {
 }
 
 
-int fib(int i) {
-  if (i < 2) return i;
-  return fib(i - 2) + fib(i - 1);
-}
-
-int fibo(int i) {
-  if (i < 2) return i;
-  return fibo(i - 2) + fibo(i - 1);
-}
-
-main(){
+main() {
   new ParentIsolate().main();
 }
 
-void log(String message) {
+
+void log(String msg) {
   String timestamp = new DateTime.now().toString().substring(11);
-  print('$timestamp : $message');
-  document.body.nodes.add(new Element.html('<div>$timestamp : $message</div>'));
+  print('$timestamp : $msg');
+  //enable next line to run on Dartium or Dart2JS
+//  document.body.nodes.add(new Element.html('<div>$msg</div>'));
 }

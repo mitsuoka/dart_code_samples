@@ -13,7 +13,7 @@ main() {
     }
 }
 
-funcA() {
+ funcA() {
   funcB(0);
 //  funcC();
 //  funcD();
@@ -34,8 +34,8 @@ funcD() {
   final testData = ['a', 'b'];
   var stream = new Stream.fromIterable(testData);
   stream.single.then((value){})
-    .catchError((er){
-      print('AsyncError : ${er}');
-      print('Stack Trace : ${getAttachedStackTrace(er)}');
+    .catchError((e, stackTrace){
+      print('AsyncError : ${e}');
+      print('Stack Trace : ${stackTrace}');
       });
 }

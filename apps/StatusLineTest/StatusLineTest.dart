@@ -13,6 +13,7 @@
 // February 2013, incorporated M3 changes
 // March 2013, HttpResponse API change fixed
 // July 2013, Modified main() to ruggedize.
+// November 2013, connectionInfo API change fixed
 
 import "dart:io";
 
@@ -110,7 +111,7 @@ StringBuffer createLogMessage(HttpRequest request, [String bodyString]) {
   var sb = new StringBuffer( '''request.headers.host : ${request.headers.host}
 request.headers.port : ${request.headers.port}
 request.connectionInfo.localPort : ${request.connectionInfo.localPort}
-request.connectionInfo.remoteHost : ${request.connectionInfo.remoteHost}
+request.connectionInfo.remoteAddress : ${request.connectionInfo.remoteAddress}
 request.connectionInfo.remotePort : ${request.connectionInfo.remotePort}
 request.method : ${request.method}
 request.persistentConnection : ${request.persistentConnection}

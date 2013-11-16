@@ -23,9 +23,9 @@ main() {
            print('Readbacked data : $data');
            f.close();
         })
-        .catchError((err){
-          print('AsyncError : ${err}');
-          print('Stack Trace : ${getAttachedStackTrace(err)}');
+        .catchError((err, stackTrace){
+          print('AsyncError : $err');
+          print('Stack Trace : $stackTrace');
           f.close();
         });
     })

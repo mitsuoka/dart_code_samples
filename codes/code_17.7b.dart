@@ -5,7 +5,7 @@ main() {
   var stream = new Stream.fromIterable(data);
 
   // define a stream transformer
-  var transformer = new StreamTransformer(handleData: (value, sink) {
+  var transformer = new StreamTransformer.fromHandlers(handleData: (value, sink) {
     if (value is num)
       // create new values from the original value
       sink.add('√$value =  ${sqrt(value)}');
@@ -15,7 +15,7 @@ main() {
     else sink.addError(new ArgumentError('$value is not a number'));
     },
   handleDone: (sink) => sink.close(),
-  handleError: (err, sink) => sink.addError(err)
+  handleError: (err, stackTrace, sink) => sink.addError(err)
   );
 
   // transform the stream and listen to its output

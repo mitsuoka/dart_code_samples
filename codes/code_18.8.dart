@@ -1,40 +1,47 @@
-import 'dart:isolate' as iso;
+import 'dart:isolate';
 import 'dart:async';
 
-costlyIsolate(){
-  iso.port.receive((msg, reply) {
+costlyIsolate(reply){
     new Timer(new Duration(seconds: 1), () => reply.send('costly'));
-  });
 }
 
-expensiveIsolate(){
-  iso.port.receive((msg, reply) {
+expensiveIsolate(reply){
     new Timer(new Duration(seconds: 2), () => reply.send('expensive'));
-  });
 }
 
-lengthyIsolate(){
-  iso.port.receive((msg, reply) {
+lengthyIsolate(reply){
     new Timer(new Duration(seconds: 3), () => reply.send('lengthy'));
-  });
 }
 
 costlyQuery() {
+  var reply = new ReceivePort();
   var completer = new Completer();
-  return iso.spawnFunction(costlyIsolate).call('');
+  Isolate.spawn(costlyIsolate, reply.sendPort)
+    .then((_) => reply.first)
+    .then((msg) {completer.complete(msg);});
+  return completer.future;
 }
 
 expensiveWork() {
+  var reply = new ReceivePort();
   var completer = new Completer();
-  return iso.spawnFunction(expensiveIsolate).call('');
+  Isolate.spawn(expensiveIsolate, reply.sendPort)
+    .then((_) => reply.first)
+    .then((msg) {completer.complete(msg);});
+  return completer.future;
 }
 
 lengthyComputation() {
+  var reply = new ReceivePort();
   var completer = new Completer();
-  return iso.spawnFunction(lengthyIsolate).call('');
+  Isolate.spawn(lengthyIsolate, reply.sendPort)
+    .then((_) => reply.first)
+    .then((msg) {completer.complete(msg);});
+  return completer.future;
 }
 
 void main() {
+
   // process each time it completes
   costlyQuery().then((value){print(value);});
   expensiveWork().then((value){print(value);});

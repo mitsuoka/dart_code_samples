@@ -5,9 +5,9 @@ main() {
   var stream = new Stream.fromIterable(testData);
   var broadcastStream = stream.asBroadcastStream();
   broadcastStream.single.then((value) => print('stream.single: $value'))
-    .catchError((err){
-       print('AsyncError : ${err}');
-       print('Stack Trace : ${getAttachedStackTrace(err)}');
+    .catchError((err, stackTrace){
+       print('AsyncError : $err');
+       print('Stack Trace : $stackTrace');
      });
   broadcastStream.first.then((value) => print('stream.first: $value'));     // a
   broadcastStream.last.then((value) => print('stream.last: $value'));       // e
