@@ -17,6 +17,7 @@
   July 2013, Modified main() to ruggedize.
   Aug. 2013, API change (removed StringDecoder and added dart:convert) fixed
   Oct. 2013, API change (dart:utf removed) fixed
+  Nov. 2013, API change (remotHost -> remoteAddress) fixed
 */
 
 import "dart:async";
@@ -101,7 +102,7 @@ StringBuffer createLogMessage(HttpRequest request, [String bodyString]) {
   var sb = new StringBuffer( '''request.headers.host : ${request.headers.host}
 request.headers.port : ${request.headers.port}
 request.connectionInfo.localPort : ${request.connectionInfo.localPort}
-request.connectionInfo.remoteHost : ${request.connectionInfo.remoteHost}
+request.connectionInfo.remoteAddress : ${request.connectionInfo.remoteAddress}
 request.connectionInfo.remotePort : ${request.connectionInfo.remotePort}
 request.method : ${request.method}
 request.persistentConnection : ${request.persistentConnection}

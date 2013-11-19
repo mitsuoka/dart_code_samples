@@ -1,24 +1,28 @@
 /*
- Dart code sample to show how to use the timer isolate library
-  note : Following changes will be made in the near future:
-   1. Timer will be moved from dart:io to dart:core.
-   2. window.{set|clear}{Timeout|Interval} will be deprecated.
-   After that, use Timer instad ot window.setInterval such as:
-     new Timer.repeating(tickMs, tickFunction);
+ Dart code sample to show how to use the TimerIsolate.dart
  Tested on Dartium
  April 2012, by Cresc corp.
  October 2012, incorporated M1 changes
  January 2013, incorporated API changes
  Feburary 2013, API changes (Element.onClick.listen and DateTime) fixed
  March 2013, API changes (Timer and String) fixed
+ November 2013, incorporated breaking dart:isolate changes
 */
 
 import 'dart:html';
 import 'dart:async';
-import 'dart:isolate' as isolate;
-import 'TimerIsolateLibrary.dart';
+import 'dart:isolate';
 
-// top level variables
+// isolate status
+final CONNECTING = 1;
+final CONNECTED = 2;
+final STOPPED = 3;
+var status;
+
+// timer modes
+final IDLE = 0;
+final RUN  = 1;
+final HOLD = 2;
 
 // long-lived ports
 var receivePort;
@@ -27,28 +31,36 @@ var sendPort;
 // TimerController object
 var timerController;
 
-// spawn and start an isolate
-class IsolateStarter {
-  void run(Function isolateFunction, Function nextStateFunction) {
-    // communication link establishment
-    Completer completer = new Completer();
-    Future linkEstablished = completer.future;
-    var isComplete = false;
-    sendPort = isolate.spawnFunction(isolateFunction);
-    log('spawned an isolate');
-    receivePort = new isolate.ReceivePort();
-    sendPort.send('hi', receivePort.toSendPort());  // tell the new send port
-    receivePort.receive((msg, replyTo){
-      log('initial state message received by parent : $msg');
-      if (! isComplete){
-        completer.complete(true);
-        isComplete = true;
-      };
-    });
-    linkEstablished.then(nextStateFunction);
-    log('communication link established');
+// top level main function
+void main() {
+  timerController = new TimerController();
+  receivePort = new ReceivePort();
+  status = CONNECTING;
+  // communication link establishment
+  Isolate.spawnUri(Uri.parse('TimerIsolate.dart'), ['_'], receivePort.sendPort)
+    .then((iso){
+      log('spawned TimerIsolate #${iso.hashCode}');
+    });  // receive messages and dispatch them
+  receivePort.listen((msg){
+    if (status == CONNECTING) linkEstablish(msg);
+    else if (status == CONNECTED) timerController.processReports(msg);
+  });
+}
+
+// establish communication link
+linkEstablish(msg){
+  if (msg is SendPort) {
+    sendPort = msg;
+    sendPort.send('ping');
+  }
+  else if (msg == 'pong') {
+    log('main received : $msg');
+    log('link established');
+    status = CONNECTED;
+    timerController.run();
   }
 }
+
 
 // main class of this application
 class TimerController {
@@ -63,9 +75,9 @@ class TimerController {
   ButtonElement holdButton;
 
   void initializeTimer(){
-    resetButton = document.query("#b0");
-    runButton = document.query("#b1");
-    holdButton = document.query("#b2");
+    resetButton = document.querySelector("#b0");
+    runButton = document.querySelector("#b1");
+    holdButton = document.querySelector("#b2");
     clearButtonColor();
     resetButton.style.backgroundColor = "green";
     trips = [500, 1500, 5000, 2500];  // set trips here
@@ -83,7 +95,7 @@ class TimerController {
   }
 
   // report processor
-  processReports(msg, replyTo){
+  processReports(msg){
     if (msg is String) {log('received $msg');
     } else if (msg is Map){
       if (msg.containsKey('state')) state = msg['state'];
@@ -120,12 +132,11 @@ class TimerController {
       });
   }
 
-  void run(value){
+  void run(){
     initializeTimer();
-    receivePort.receive(processReports);
     setupButtonProcess();
 
-    Duration tick1 = const Duration(milliseconds: 300);  // use 0.3sec tick for display
+    Duration tick1 = const Duration(milliseconds: 200);  // use 0.2sec tick for display
     new Timer.periodic(tick1, (timer){
       sendPort.send('?elapsed');
       sendPort.send('?expiredFlags');
@@ -140,22 +151,16 @@ class TimerController {
   }
 }
 
-// top level main function
-void main() {
-  timerController = new TimerController();
-  new IsolateStarter().run(timerIsolate, timerController.run);
-}
-
 // functions for formatted output
 void log(String msg) {
-  String timestamp = new DateTime.now().toString();
+  String timestamp = new DateTime.now().toString().substring(11);
   msg = '$timestamp : $msg';
   print(msg);
-  document.query('#log').insertAdjacentHtml('beforeend', '$msg<br>');
+  document.querySelector('#log').insertAdjacentHtml('beforeend', '$msg<br>');
 }
 
 void writeCounter(String message) {
-  document.query('#timerCount').innerHtml = message;
+  document.querySelector('#timerCount').innerHtml = message;
 }
 
 void writeTrips(List setting, List status, int len) {
@@ -168,7 +173,7 @@ void writeTrips(List setting, List status, int len) {
     if (status[i]) sb.write(' : <font color="red">Expired</font>');
     sb.write('<br>');
   }
-  document.query('#trips').innerHtml = '$sb';
+  document.querySelector('#trips').innerHtml = '$sb';
 }
 
 // function to format a number with separators. returns formatted number.

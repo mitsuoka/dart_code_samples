@@ -3,15 +3,15 @@ import 'dart:async';
 final int timerValue = 5000; // set timeout here in ms
 
 void main() {
-  query("#start_text_id").text = "Click the prompt";
-  query("#prompt_text_id").text = "Click me within ${timerValue~/1000} seconds!";
+  querySelector("#start_text_id").text = "Click the prompt";
+  querySelector("#prompt_text_id").text = "Click me within ${timerValue~/1000} seconds!";
   doRepeat();
 }
 
 class ClickProcessWorker {
   Future run() {
     var completer = new Completer();
-    var text = document.query("#prompt_text_id");
+    var text = document.querySelector("#prompt_text_id");
     text.onClick.listen((e){
       if (!completer.isCompleted) {
         completer.complete('clicked');
@@ -29,7 +29,7 @@ doRepeat() {
     doRepeat();
     },
     onError: (err){
-    query("#prompt_text_id").text = "Timeout expired!";
+    querySelector("#prompt_text_id").text = "Timeout expired!";
  });
 }
 
@@ -58,10 +58,10 @@ class TimeoutException implements Exception{
 }
 
 void reverseText() {
-  var text = query("#prompt_text_id").text;
+  var text = querySelector("#prompt_text_id").text;
   var buffer = new StringBuffer();
   for (int i = text.length - 1; i >= 0; i--) {
     buffer.write(text[i]);
   }
-  query("#prompt_text_id").text = buffer.toString();
+  querySelector("#prompt_text_id").text = buffer.toString();
 }
