@@ -1,5 +1,5 @@
 import 'dart:html';
-import 'dart:math' as Math;
+import 'dart:math';
 
 class CanvasTest {
 
@@ -23,9 +23,11 @@ class CanvasTest {
   }
 
   void onMouseDown(event) {
-    int x = event.offsetX;
-    int y = event.offsetY;
-    ctx.arc(x, y, 30, 0, Math.PI * 2, false);
+    int x = event.offset.x;
+    int y = event.offset.y;
+    int r = 30;
+    ctx.moveTo(x + r, y);
+    ctx.arc(x, y, r, 0, PI * 2, false);
     ctx.fillStyle = 'blue';
     ctx.fill();
   }
