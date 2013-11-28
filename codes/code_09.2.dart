@@ -1,5 +1,3 @@
-import 'package:meta/meta.dart';
-
 class A {
   doThis() => print('doThis');
   doThat() => print('doThat');
