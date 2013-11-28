@@ -11,7 +11,7 @@ class CanvasTest {
 
   void run() {
     write("Canvas test");
-    CanvasElement ce = document.query("#canvas");
+    CanvasElement ce = document.querySelector("#canvas");
     ctx = ce.getContext("2d");
     width = ce.width; height = ce.height;
     ctx.strokeRect(0, 0, width, height);
@@ -19,7 +19,7 @@ class CanvasTest {
   }
 
   void write(String message) {
-    document.query('#status').innerHtml = message;
+    document.querySelector('#status').innerHtml = message;
   }
 
   void onMouseDown(event) {

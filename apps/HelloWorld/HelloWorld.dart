@@ -8,7 +8,7 @@ class HelloWorld {
   }
   void write(String message) {
     // the HTML library defines a global 'document' variable
-    document.query('#status').innerHtml = message;
+    document.querySelector('#status').innerHtml = message;
   }
 }
 

@@ -12,7 +12,7 @@ import 'dart:async';
 
 void write(String message) {
   String timestamp = new DateTime.now().toString();
-  document.query('#status').insertAdjacentHtml('beforeend', '$timestamp : $message<br>');
+  document.querySelector('#status').insertAdjacentHtml('beforeend', '$timestamp : $message<br>');
 }
 
 int timeConsumingWork(int durationInMs){
@@ -27,7 +27,7 @@ class ClickProcessWorker {
   Future<String> run(String buttonID) {
     var completer = new Completer();
     var isComplete = false;
-    ButtonElement button = document.query('#$buttonID');
+    ButtonElement button = document.querySelector('#$buttonID');
     button.onClick.listen((e){
       if (!isComplete) {
         completer.complete(buttonID);
