@@ -8,6 +8,7 @@ class CanvasTest {
 
   int width, height;
   CanvasRenderingContext2D ctx;
+  static int radius = 30;
 
   void run() {
     write("Canvas test");
@@ -25,9 +26,8 @@ class CanvasTest {
   void onMouseDown(event) {
     int x = event.offset.x;
     int y = event.offset.y;
-    int r = 30;
-    ctx.moveTo(x + r, y);
-    ctx.arc(x, y, r, 0, PI * 2, false);
+    ctx.moveTo(x + radius, y);
+    ctx.arc(x, y, radius, 0, PI * 2, false);
     ctx.fillStyle = 'blue';
     ctx.fill();
   }
