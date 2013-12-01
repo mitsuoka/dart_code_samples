@@ -1,7 +1,8 @@
 // Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
-// Revised December 2013, by Terry.
+// December 2013, Modified by Terry.
+// Access this server as 'http://localhost:8080/time'.
 
 import "dart:io";
 import "dart:convert";
@@ -22,7 +23,7 @@ void main() {
             "from ${request.connectionInfo.remoteAddress}");
           }
           if (request.uri.path == REQUEST_PATH) {
-            requestReceivedHandler(request);
+            service(request);
           }
           else request.response.close();
         });
@@ -32,10 +33,10 @@ void main() {
 
 // create and send response for the request here.
 // if you are using Future or Stream objects inside of the try block,
-// you have to handle their error and throw that error.
-void requestReceivedHandler(HttpRequest request) {
+// you have to catch their error and throw that error as an Exception.
+void service(HttpRequest request) {
   try {
-//  var x = 1 % 0;  // uncomment this line to test exception handling
+//  throw new Exception('exception raised');  // uncomment this line to test exception handling
     String htmlResponse = createHtmlResponse();
     sendResponse(request, htmlResponse);
   }
