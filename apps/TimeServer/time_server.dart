@@ -33,7 +33,7 @@ void main() {
 
 // create and send response for the request here.
 // if you are using Future or Stream objects inside of the try block,
-// you have to catch their error and throw that error as an Exception.
+// you have to catch and handle their error in the callback.
 void service(HttpRequest request) {
   try {
 //  throw new Exception('exception raised');  // uncomment this line to test exception handling
