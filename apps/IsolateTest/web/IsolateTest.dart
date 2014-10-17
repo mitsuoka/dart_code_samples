@@ -7,7 +7,6 @@
 // February 2013,  incorporated API changes
 // November 2013, incorporated Isolate API breaking changes
 
-import 'dart:async';
 import 'dart:isolate';
 import 'dart:math';
 import 'dart:html'; // enable this to run on  Dartium or Dert2JS
