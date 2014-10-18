@@ -3,34 +3,39 @@ dart\_code\_samples
 
 **dart\_code\_samples** is an attachment to the ["Dart Language Gide"](http://www.cresc.co.jp/tech/java/Google_Dart/DartLanguageGuide.pdf) written in Japanese.
 
-‚±‚ÌƒTƒ“ƒvƒ‹‚Í[uƒvƒƒOƒ‰ƒ~ƒ“ƒOŒ¾ŒêDart‚ÌŠî‘bv](http://www.cresc.co.jp/tech/java/Google_Dart/DartLanguageGuide_about.html)‚Ì
-“Y•t‘—¿‚Å‚·B
+ã“ã®ã‚µãƒ³ãƒ—ãƒ«ã¯[ã€Œãƒ—ãƒ­ã‚°ãƒ©ãƒŸãƒ³ã‚°è¨€èªDartã®åŸºç¤ã€](http://www.cresc.co.jp/tech/java/Google_Dart/DartLanguageGuide_about.html)ã®
+æ·»ä»˜è³‡æ–™ã§ã™ã€‚
 
-### “à—e ###
-‚±‚ÌƒŒƒ|ƒWƒgƒŠ‚Í2‚Â‚ÌƒtƒHƒ‹ƒ_‚Å\¬‚³‚ê‚Ä‚¢‚Ü‚·F
+### å†…å®¹ ###
+ã“ã®ãƒ¬ãƒã‚¸ãƒˆãƒªã¯2ã¤ã®ãƒ•ã‚©ãƒ«ãƒ€ã§æ§‹æˆã•ã‚Œã¦ã„ã¾ã™ï¼š
 
-- codes : uƒvƒƒOƒ‰ƒ~ƒ“ƒOŒ¾ŒêDart‚ÌŠî‘bv‚ÌŠeÍ‚É‚ ‚écode\_xx.yy.dart‚Ì–¼‘Oixx‚ÍÍ”Ô†Ayy‚Íß”Ô†j‚Å•\¦‚³‚ê‚½ƒR[ƒhEƒTƒ“ƒvƒ‹‚ªŠÜ‚Ü‚ê‚Ä‚¢‚Ü‚·B
+- codes : ã€Œãƒ—ãƒ­ã‚°ãƒ©ãƒŸãƒ³ã‚°è¨€èªDartã®åŸºç¤ã€ã®å„ç« ã«ã‚ã‚‹code\_xx.yy.dartã®åå‰ï¼ˆxxã¯ç« ç•ªå·ã€yyã¯ç¯€ç•ªå·ï¼‰ã§è¡¨ç¤ºã•ã‚ŒãŸã‚³ãƒ¼ãƒ‰ãƒ»ã‚µãƒ³ãƒ—ãƒ«ãŒå«ã¾ã‚Œã¦ã„ã¾ã™ã€‚
 
-- apps : uƒvƒƒOƒ‰ƒ~ƒ“ƒOŒ¾ŒêDart‚ÌŠî‘bv‚Ì‚È‚©‚É‚ ‚éƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚Å‚·B’A‚µŸ‚Ì‚à‚Ì‚Í•Ê“rGithub‚É“o˜^‚³‚ê‚Ä‚¢‚Ü‚·F
+- apps : ã€Œãƒ—ãƒ­ã‚°ãƒ©ãƒŸãƒ³ã‚°è¨€èªDartã®åŸºç¤ã€ã®ãªã‹ã«ã‚ã‚‹ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã§ã™ã€‚ä½†ã—æ¬¡ã®ã‚‚ã®ã¯åˆ¥é€”Githubã«ç™»éŒ²ã•ã‚Œã¦ã„ã¾ã™ï¼š
 
- - [MIME type](https://github.com/mitsuoka/mime_type) : u ƒpƒbƒP[ƒWEƒ}ƒl[ƒWƒƒ(Pub)v‚ÌÍ‚Ìupub‚ÌŠT—vv‚Ìß
+ - [MIME type](https://github.com/mitsuoka/mime_type) : ã€Œ ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ãƒ»ãƒãƒãƒ¼ã‚¸ãƒ£(Pub)ã€ã®ç« ã®ã€Œpubã®æ¦‚è¦ã€ã®ç¯€
 
- - [file\_server](https://github.com/mitsuoka/file_server) : uHTTPƒT[ƒo (HttpServer)v‚ÌÍ‚Ìuƒtƒ@ƒCƒ‹EƒT[ƒov‚Ìß
+ - [file\_server](https://github.com/mitsuoka/file_server) : ã€ŒHTTPã‚µãƒ¼ãƒ (HttpServer)ã€ã®ç« ã®ã€Œãƒ•ã‚¡ã‚¤ãƒ«ãƒ»ã‚µãƒ¼ãƒã€ã®ç¯€
 
- - [GooSushi](https://github.com/mitsuoka/GooSushi) : uHTTPƒT[ƒo (HttpServer)v‚ÌÍ‚ÌuƒZƒbƒVƒ‡ƒ“ŠÇ—v‹y‚ÑuƒVƒ‡ƒbƒsƒ“ƒOEƒJ[ƒg‚ÌƒAƒvƒŠƒP[ƒVƒ‡ƒ“EƒT[ƒov‚Ìß
+ - [GooSushi](https://github.com/mitsuoka/GooSushi) : ã€ŒHTTPã‚µãƒ¼ãƒ (HttpServer)ã€ã®ç« ã®ã€Œã‚»ãƒƒã‚·ãƒ§ãƒ³ç®¡ç†ã€åŠã³ã€Œã‚·ãƒ§ãƒƒãƒ”ãƒ³ã‚°ãƒ»ã‚«ãƒ¼ãƒˆã®ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãƒ»ã‚µãƒ¼ãƒã€ã®ç¯€
 
- - [https\_servers](https://github.com/mitsuoka/https_servers) : uHTTPSƒT[ƒo (HTTPS Servers)v‚ÌÍ‚Ìu ŠÈ’P‚ÈHTTPSƒT[ƒo‚ÌÀŒ±v‚Ìß
+ - [https\_servers](https://github.com/mitsuoka/https_servers) : ã€ŒHTTPSã‚µãƒ¼ãƒ (HTTPS Servers)ã€ã®ç« ã®ã€Œ ç°¡å˜ãªHTTPSã‚µãƒ¼ãƒã®å®Ÿé¨“ã€ã®ç¯€
 
- - [WebSocket Chat Server](https://github.com/mitsuoka/websocket_chat_server) : uWebSocketƒT[ƒo (WebSocket Servers)v‚ÌÍ‚Ìuƒ`ƒƒƒbƒgEƒT[ƒov‚Ìß
+ - [WebSocket Chat Server](https://github.com/mitsuoka/websocket_chat_server) : ã€ŒWebSocketã‚µãƒ¼ãƒ (WebSocket Servers)ã€ã®ç« ã®ã€Œãƒãƒ£ãƒƒãƒˆãƒ»ã‚µãƒ¼ãƒã€ã®ç¯€
 
- - [file\_upload\_test](https://github.com/mitsuoka/file_upload_test) : uƒtƒ@ƒCƒ‹EƒAƒbƒvƒ[ƒh(HTTP File Upload Servers)v‚ÌÍ
+ - [file\_upload\_test](https://github.com/mitsuoka/file_upload_test) : ã€Œãƒ•ã‚¡ã‚¤ãƒ«ãƒ»ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰(HTTP File Upload Servers)ã€ã®ç« 
+
+ - [shelf\_test](https://github.com/mitsuoka/shelf_test) :ã€ŒãƒŸãƒ‰ãƒ«ã‚¦ã‚¨ã‚¢ãƒ»ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¯ãƒ¼ã‚¯ (shelf)ã€ã®ç« 
+
+ - [weather\_forecast\_server](https://github.com/mitsuoka/weather_forecast_server) :ã€ŒRESTfulã‚¦ã‚§ãƒ–ãƒ»ã‚µãƒ¼ãƒ“ã‚¹ã¨Dart (Dart in RESTful web services)ã€ã®ç« ã®ã€Œç°¡å˜ãªã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã®ç¯€ã€
 
 
-### g—p–@ ###
-Download ZIPƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚Äƒ_ƒEƒ“ƒ[ƒhE‰ğ“€‚µADart Editor‚ÅFile„Open Existing Folder„‚Å•K—v‚ÈƒtƒHƒ‹ƒ_‚ğæ‚è‚ñ‚Å‚­‚¾‚³‚¢BÚ×‚Í‰ğà‘‚ÌÅŒã‚É‚ ‚éu–{‘—¿‚ÉŠÜ‚Ü‚ê‚Ä‚¢‚éƒvƒƒOƒ‰ƒ€‚Ìƒ_ƒEƒ“ƒ[ƒhv‚ÌÍ‚É‹L‚³‚ê‚Ä‚¢‚Ü‚·B
+
+### ä½¿ç”¨æ³• ###
+Download ZIPãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ã¦ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ãƒ»è§£å‡ã—ã€Dart Editorã§Fileï¼Open Existing Folderï¼ã§å¿…è¦ãªãƒ•ã‚©ãƒ«ãƒ€ã‚’å–ã‚Šè¾¼ã‚“ã§ãã ã•ã„ã€‚è©³ç´°ã¯è§£èª¬æ›¸ã®æœ€å¾Œã«ã‚ã‚‹ã€Œæœ¬è³‡æ–™ã«å«ã¾ã‚Œã¦ã„ã‚‹ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã€ã®ç« ã«è¨˜ã•ã‚Œã¦ã„ã¾ã™ã€‚
 
 ### License ###
 This sample is licensed under [MIT License][MIT].
 [MIT]: http://www.opensource.org/licenses/mit-license.php
 
-–{‘—¿‚ÍMITƒ‰ƒCƒZƒ“ƒX‚Ì‚à‚Æ‚Å—˜—pŠè‚¢‚Ü‚·B¤—p‚Ég‚¤‚±‚Æ‹y‚Ñ‚»‚ÌŒ‹‰Ê‚É‚Â‚¢‚Ä‚Í‚»‚ÌÓ‚ğ•‰‚¢‚Ü‚¹‚ñB
+æœ¬è³‡æ–™ã¯MITãƒ©ã‚¤ã‚»ãƒ³ã‚¹ã®ã‚‚ã¨ã§åˆ©ç”¨é¡˜ã„ã¾ã™ã€‚å•†ç”¨ã«ä½¿ã†ã“ã¨åŠã³ãã®çµæœã«ã¤ã„ã¦ã¯ãã®è²¬ã‚’è² ã„ã¾ã›ã‚“ã€‚
