@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OpenWeatherMap-current</title>    
+    <script async type="application/dart" src="weather.dart"></script>    
+    <script src="../packages/browser/dart.js"></script>   
+    <link rel="stylesheet" href="weather.css">
+  </head>
+  
+  <body id="body">
+    <h1>--- Weather information from the OpenWeatherMap ---</h1>
+    
+    <div>
+    <h2 id="selectionTitle">　　<br>Select city</h2>    
+    <select id="selectMenu">
+    <option value="4930956">Boston</option>
+    <option value="5128581">New York City</option>
+    <option value="5368361">Los Angeles</option>
+    <option value="4887398">Chicago</option>
+    <option value="4190598">Dallas</option>
+    <option value="2643741">City of London</option>
+    <option value="2988507">Paris</option>
+    <option value="2950159">Berlin</option>
+    <option value="2128295">札幌 (Sapporo-shi)</option>
+    <option value="1850147" selected>東京 (Tokyo)</option>
+    <option value="1848354">横浜 (Yokohama-shi)</option>
+    <option value="1856057">名古屋 (Nagoya-shi)</option>
+    <option value="1857910">京都 (Kyoto)</option>
+    <option value="1853909">大阪 (Osaka-shi)</option>
+    <option value="1862415">広島 (Hiroshima-shi)</option>
+    <option value="1863967">福岡 (Fukuoka-shi)</option>
+    <option value="1860827">鹿児島 (Kagoshima-shi)</option>
+    <option value="1856035">那覇 (Naha-shi)</option>
+    </select>
+    </div>
+
+    <div>
+    <h2><br>Current weather</h2>
+    <table id="weatherTable">
+      <tr><td id="text1Cell"></td></tr>
+      <tr><td id="imageCell"><img id="image"></td></tr>
+      <tr><td id="text2Cell"></td></tr>
+      <tr><td id="text3Cell"></td></tr>
+      <tr><td id="text4Cell"></td></tr>
+    </table>
+    </div>
+  
+    <div>
+    <h2 id = "subTitle"></h2>
+    <table id="forecastTable">
+    </table>
+    </div>
+     
+  </body>
+</html>

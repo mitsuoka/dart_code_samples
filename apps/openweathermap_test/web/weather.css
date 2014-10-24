@@ -1,0 +1,60 @@
+body {
+  width: 450px;
+  background-color: #F8F8F8;
+  font-family: Meiryo,'Open Sans', sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 1.2em;
+  margin: 15px;
+}
+
+h1, h2 {
+  color: orange;
+  text-align: center;
+  font-family: Meiryo,'Open Sans', sans-serif;  
+  font-size: 14px;
+}
+
+div {
+  text-align: center;
+}
+
+#selectMenu {
+   width: 250px;
+   height: 30px;
+   font-size: 13px;
+}
+
+#weatherTable, #forecastTable {
+  width: 250px;
+  border=1;
+  border-collapse: collapse;  
+  border: 1px solid green;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+#text1Cell, #titleCell {
+  font-size: 15px;
+}
+
+#imageCell {
+  text-align: center;
+}
+
+#text2Cell {
+  font-size: 15px;
+}
+
+#text3Cell {
+  padding-left: 15px;
+  text-align: left;
+  font-size: 12px
+}
+
+#text4Cell{
+  font-size: 11px
+}
+
+}
+

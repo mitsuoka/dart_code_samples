@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Web service test</title>
+    
+    <script async type="application/dart" src="web_service_test.dart"></script>
+    <script async src="packages/browser/dart.js"></script>    
+    <link rel="stylesheet" href="web_service_test.css">
+  </head>
+  <body>
+    <h1>Web service test</h1>
+    <br>Open JavaScript console to check CORS error.
+    
+    <div>
+    <br>Select URI :<br>
+      <select id="selectMenu">
+        <option value="http://maps.googleapis.com/maps/api/geocode/json?address=1000013&language=ja&sensor=false" selected>
+        http://maps.googleapis.com/maps/api/geocode/json?address=1000013&language=ja&sensor=false</option>
+        <option value="http://api.openweathermap.org/data/2.5/weather?q=London,uk">
+        http://api.openweathermap.org/data/2.5/weather?q=London,uk</option> 
+        <option value="http://api.openweathermap.org/data/2.5/forecast/daily?id=1850147&mode=json&cnt=3">
+        http://api.openweathermap.org/data/2.5/forecast/daily?id=1850147&mode=json&cnt=3
+        </option>
+        <option value="http://weather.livedoor.com/forecast/webservice/json/v1?city=400040">
+        http://weather.livedoor.com/forecast/webservice/json/v1?city=400040</option>  
+      </select><br>
+      <button id="submitButton1" type="button"> Submit </button>
+      <br><br>or, enter the URI you want to access :<br>
+      <textarea id="textArea"></textarea><br>
+    <button id="submitButton2" type="button"> Submit </button>
+    </div><br>
+
+    <hr>
+    <pre id="log">Log Messages:
+    </pre>
+
+  </body>
+</html>
