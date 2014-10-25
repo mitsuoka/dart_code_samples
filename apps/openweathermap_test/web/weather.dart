@@ -22,7 +22,7 @@ void onRequested(String cityCode){
     currentDom(jsonObj);
     loadForecast(cityCode).then((jsonObj){
       log('received JSON object : ${jsonObj}');
-      forcastDom(jsonObj);
+      forecastDom(jsonObj);
     });
   });
 }
@@ -81,7 +81,7 @@ currentDom(Map json) {
   }
 }
 
-forcastDom(Map json){
+forecastDom(Map json){
   try{
     var cell = document.getElementById('subTitle');
     cell.innerHtml = '<br>Three day forecast<br>${json["city"]["name"]} ${json["city"]["country"]}';
