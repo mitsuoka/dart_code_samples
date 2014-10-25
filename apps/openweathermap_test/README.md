@@ -5,7 +5,7 @@ openweathermap\_test
  sample and an attachment
 to the ["Dart Language Gide"](http://www.cresc.co.jp/tech/java/Google_Dart/DartLanguageGuide.pdf) written in Japanese.
 
-このリポジトリは[「プログラミング言語 Dartの基礎」](http://www.cresc.co.jp/tech/java/Google_Dart/DartLanguageGuide_about.html)の添付資料であり、「RESTfulウェブ・サービスとDart (Dart in RESTful web services)」の「ブラウザだけでのアプリケーション」の節で解説されています。この節ではサービスへの登録や専用のAPIが不要なウェブ・サービスを使った簡単なアプリケーションのクライアントのコード例を示しています。
+このリポジトリは[「プログラミング言語 Dartの基礎」](http://www.cresc.co.jp/tech/java/Google_Dart/DartLanguageGuide_about.html)の添付資料であり、「RESTfulウェブ・サービスとDart (Dart in RESTful web services)」の「クライアント側だけで済むアプリケーション」の節で解説されています。この節ではサービスへの登録などが不要なウェブ・サービスを使った簡単なアプリケーションのクライアントのコード例を示しています。
 
 
 ### Installing ###
