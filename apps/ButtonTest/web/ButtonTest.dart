@@ -7,13 +7,13 @@ class ButtonTest {
 
   void run() {
     write("Button test");
-    ButtonElement button = document.query("#button");
+    ButtonElement button = document.querySelector("#button");
     button.onClick.listen((e) => write("Clicked!"));
   }
 
   void write(String message) {
     // the HTML library defines a global "document" variable
-    document.query('#status').innerHtml = message;
+    document.querySelector('#status').innerHtml = message;
   }
 }
 
