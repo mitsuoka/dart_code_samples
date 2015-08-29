@@ -39,7 +39,10 @@ Future connectToServer() {
     serverSideSocket = serverSocket;
     // set outbound call back here
     serverSideSocket.listen((outboundData) {
-      processOutbound(outboundData);});
+      processOutbound(outboundData);}
+    ,onError:(e){
+      log('Failed to receive server data: $e');
+    });
     completer.complete(1);
   }).catchError((e) {
     log('Connection error: $e\nStart server and restart this proxy');
@@ -56,15 +59,21 @@ Future closePreviousSocket(Socket clientSocket) {
       clientSideSocket = clientSocket;
       // set inbound callback here
       clientSideSocket.listen((inboundData) {
-        processInbound(inboundData);});
+        processInbound(inboundData);}
+      ,onError:(e){
+        log('Failed to receive client data: $e');
+      });
       completer.complete(2);
     });
   } else {
     clientSideSocket = clientSocket;
     completer.complete(2);
-    // set inbound callback here too
+    // set inbound callback here also
     clientSideSocket.listen((inboundData) {
-      processInbound(inboundData);});
+      processInbound(inboundData);}
+    ,onError:(e){
+      log('Failed to receive client data: $e');
+    });
   }
   return completer.future;
 }
@@ -73,12 +82,20 @@ Future closePreviousSocket(Socket clientSocket) {
 // process socket data
 processInbound(List<int> inboundData) {
   log('** inbound traffic **\n' + bytesToAscii(inboundData).toString());
-  serverSideSocket.add(inboundData);
+  try {
+    serverSideSocket.add(inboundData);
+  } catch (e){
+    log('Failed to send data to server: $e');
+  }
 }
 
 processOutbound(List<int> outboundData) {
   log('** outbound traffic **\n' + bytesToAscii(outboundData).toString());
-  clientSideSocket.add(outboundData);
+  try {
+    clientSideSocket.add(outboundData);
+  } catch (e){
+    log('Failed to send data to client: $e');
+  }
 }
 
 // convert List<int> data into printable ASCII string

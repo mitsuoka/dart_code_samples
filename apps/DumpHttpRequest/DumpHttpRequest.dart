@@ -32,6 +32,7 @@ final LOG_REQUESTS = false;
 void main() {
   HttpServer.bind(HOST, PORT)
   .then((HttpServer server) {
+    server.autoCompress = true; // compression test
     server.listen(
         (HttpRequest request) {
           request.response.done.then((d){
@@ -126,12 +127,13 @@ request.uri.queryParameters :
 request.headers :
   ''');
   var str = request.headers.toString();
-  for (int i = 0; i < str.length - 1; i++){
+  for (int i = 0; i < str.length; i++){
     if (str[i] == "\n") { sb.write("\n  ");
     } else { sb.write(str[i]);
     }
   }
-  sb.write('''\nrequest.session.id : ${request.session.id}
+  sb.write('''
+request.session.id : ${request.session.id}
 requset.session.isNew : ${request.session.isNew}
 ''');
   if (request.method == "POST") {
