@@ -6,7 +6,7 @@
  *
  * 1) Start your server with http://localhost:8080/yourApp....
  * 2) Start this proxy
- * 3) Call your app from your browser as http://localhost:12345/yourApp...
+ * 3) Call your app from your browser with http://localhost:12345/yourApp...
  *
  * Aug. 2015, Cresc Corp.
  */
@@ -14,7 +14,7 @@
 import 'dart:io';
 import 'dart:async';
 
-// you can modify to set following parameters as command line arguments
+// modify here to set following parameters using command line arguments
 var serverHost = InternetAddress.LOOPBACK_IP_V4;
 int proxyPort = 12345;
 int serverPort = 8080;
@@ -41,17 +41,18 @@ main() {
   }
 }
 
-// connect to the server and wait for server data
+// connect to the server and set call back for outbound data
 Future connectToServer(Socket clientSocket) {
   var completer = new Completer();
   Socket.connect(serverHost, serverPort).then((serverSocket) {
-    log('Proxy establised connection for incomig socket ${clientSocket.hashCode} with server socket ${serverSocket.hashCode}');
+    log('Proxy establised a connection for incomig socket ${clientSocket.hashCode}'
+      ' with server socket ${serverSocket.hashCode}');
     connections[clientSocket] = serverSocket; // add to the connection table
     // set outbound call back here
     serverSocket.listen((outboundData) {
-      processOutbound(clientSocket, outboundData);
+      processOutbound(clientSocket, serverSocket, outboundData);
     }, onDone: () {
-      log('Server side socket disconnected (${clientSocket.hashCode} : ${serverSocket.hashCode})');
+      log('Server side socket disconnected (${clientSocket.hashCode}, ${serverSocket.hashCode})');
       clientSocket.destroy();
       connections.remove(clientSocket);
   //  logCurrentConnections(); // **** for debugging ****
@@ -68,9 +69,9 @@ Future connectToServer(Socket clientSocket) {
 // set callback for inbound data
 setInboundCallback(Socket clientSocket, Socket serverSocket) {
   clientSocket.listen((inboundData) {
-    processInbound(serverSocket, inboundData);
+    processInbound(clientSocket, serverSocket, inboundData);
   }, onDone: () {
-    log('Client side socket disconnected (${clientSocket.hashCode} : ${serverSocket.hashCode})');
+    log('Client side socket disconnected (${clientSocket.hashCode}, ${serverSocket.hashCode})');
     serverSocket.destroy();
     connections.remove(clientSocket);
     logCurrentConnections(); // **** for debugging ****
@@ -81,8 +82,9 @@ setInboundCallback(Socket clientSocket, Socket serverSocket) {
 }
 
 // process socket data
-processInbound(Socket serverSocket, List<int> inboundData) {
-  log('** inbound traffic **\n' + bytesToAscii(inboundData).toString());
+processInbound(Socket clientSocket, Socket serverSocket, List<int> inboundData) {
+  log('** connection (${clientSocket.hashCode}, ${serverSocket.hashCode}) inbound traffic **\n'
+    + bytesToAscii(inboundData).toString());
   try {
     serverSocket.add(inboundData);
   } catch (e) {
@@ -90,8 +92,9 @@ processInbound(Socket serverSocket, List<int> inboundData) {
   }
 }
 
-processOutbound(Socket clientSocket, List<int> outboundData) {
-  log('** outbound traffic **\n' + bytesToAscii(outboundData).toString());
+processOutbound(Socket clientSocket, Socket serverSocket, List<int> outboundData) {
+  log('** connection (${clientSocket.hashCode}, ${serverSocket.hashCode}) outbound traffic **\n'
+    + bytesToAscii(outboundData).toString());
   try {
     clientSocket.add(outboundData);
   } catch (e) {
@@ -123,8 +126,12 @@ void log(String msg) {
 
 // log out current connections for debug
 void logCurrentConnections() {
-  log('Current connections (client side socket : server side socket) :');
-  connections.forEach((client, server){
-    log('${client.hashCode} : ${server.hashCode}');
-  });
+  var msg = 'Current connections (client side socket, server side socket) :\n';
+  if (connections.isEmpty) msg += '  none\n';
+  else {
+    connections.forEach((client, server) {
+      msg += '  (${client.hashCode}, ${server.hashCode})\n';
+    });
+  }
+  log(msg);
 }
