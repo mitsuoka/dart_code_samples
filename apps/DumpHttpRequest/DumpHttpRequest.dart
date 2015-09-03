@@ -18,6 +18,7 @@
   Aug. 2013, API change (removed StringDecoder and added dart:convert) fixed
   Oct. 2013, API change (dart:utf removed) fixed
   Nov. 2013, API change (remotHost -> remoteAddress) fixed
+  Aug. 2015, Updated for the latest API
 */
 
 import "dart:async";
@@ -51,19 +52,22 @@ void main() {
 
 void requestReceivedHandler(HttpRequest request) {
   HttpResponse response = request.response;
-  String bodyString = "";      // request body byte data
+  List<int> bodyBytes = [];      // request body byte data
   var completer = new Completer();
-  if (request.method == "GET") { completer.complete("query string data received");
+  if (request.method == "GET") {
+    completer.complete("query string data received");
   } else if (request.method == "POST") {
-    request
-      .transform(UTF8.decoder) // decode the body as UTF
-      .listen(
-          (String str){bodyString = bodyString + str;},
-          onDone: (){
-            completer.complete("body data received");},
-          onError: (e){
-            print('exeption occured : ${e.toString()}');}
-        );
+    request.listen(
+        (data) {
+          bodyBytes.addAll(data);
+        },
+        onDone: () {
+          completer.complete("body data received");
+        },
+        onError: (e) {
+          print("exeption occured : ${e.toString()}");
+        }
+    );
   }
   else {
     response.statusCode = HttpStatus.METHOD_NOT_ALLOWED;
@@ -73,16 +77,16 @@ void requestReceivedHandler(HttpRequest request) {
   // process the request and send a response
   completer.future.then((data){
     if (LOG_REQUESTS) {
-      print(createLogMessage(request, bodyString));
+      print(createLogMessage(request, bodyBytes));
     }
     response.headers.add("Content-Type", "text/html; charset=UTF-8");
-    response.write(createHtmlResponse(request, bodyString));
+    response.write(createHtmlResponse(request, bodyBytes));
     response.close();
   });
 }
 
 // create html response text
-String createHtmlResponse(HttpRequest request, String bodyString) {
+String createHtmlResponse(HttpRequest request, List<int> bodyBytes) {
   var res = '''<html>
   <head>
     <title>DumpHttpRequest</title>
@@ -90,7 +94,7 @@ String createHtmlResponse(HttpRequest request, String bodyString) {
   </head>
   <body>
     <H1>Data available from the request</H1>
-    <pre>${makeSafe(createLogMessage(request, bodyString)).toString()}
+    <pre>${makeSafe(createLogMessage(request, bodyBytes)).toString()}
     </pre>
   </body>
 </html>
@@ -99,7 +103,7 @@ String createHtmlResponse(HttpRequest request, String bodyString) {
 }
 
 // create log message
-StringBuffer createLogMessage(HttpRequest request, [String bodyString]) {
+StringBuffer createLogMessage(HttpRequest request, [List<int> bodyBytes]) {
   var sb = new StringBuffer( '''request.headers.host : ${request.headers.host}
 request.headers.port : ${request.headers.port}
 request.connectionInfo.localPort : ${request.connectionInfo.localPort}
@@ -124,24 +128,24 @@ request.uri.queryParameters :
     sb.write("  ${value.toString()}\n");
   });
   sb.write('''request.headers.expires : ${request.headers.expires}
-request.headers :
-  ''');
-  var str = request.headers.toString();
-  for (int i = 0; i < str.length; i++){
-    if (str[i] == "\n") { sb.write("\n  ");
-    } else { sb.write(str[i]);
-    }
-  }
-  sb.write('''
+request.headers :''');
+  request.headers.forEach((name,values){
+    sb.write('\n  $name :');
+    values.forEach((value) {
+      sb.write(' $value');
+    });
+  });
+  sb.write('''\n
 request.session.id : ${request.session.id}
 requset.session.isNew : ${request.session.isNew}
 ''');
   if (request.method == "POST") {
-    var enctype = request.headers["content-type"];
-    if (enctype[0].contains("text")) {
-      sb.write("request body string : ${bodyString.replaceAll('+', ' ')}");
-    } else if (enctype[0].contains("urlencoded")) {
-      sb.write("request body string (URL decoded): ${urlDecode(bodyString)}");
+    var enctype = request.headers["content-type"][0];
+    if (enctype.contains("text")) { // UTF8 encoded text/plain
+      sb.write("request body string (text/plain) : ${UTF8.decode(bodyBytes)}");
+    } else if (enctype.contains("urlencoded")) { // URL encoded
+      sb.write("request body string (URL decoded): "
+        + Uri.decodeQueryComponent(UTF8.decode(bodyBytes)));
     }
   }
   sb.write("\n");
@@ -164,59 +168,3 @@ StringBuffer makeSafe(StringBuffer b) {
   }
   return b;
 }
-
-// URL decoder decodes url encoded utf-8 bytes
-// Use this method to decode query string
-// We need this kind of encoder and decoder with optional [encType] argument
-String urlDecode(String s){
-  int i, p, q;
-   var ol = new List<int>();
-   for (i = 0; i < s.length; i++) {
-     if (s[i].codeUnitAt(0) == 0x2b) { ol.add(0x20); // convert + to space
-     } else if (s[i].codeUnitAt(0) == 0x25) {        // convert hex bytes to a single bite
-       i++;
-       p = s[i].toUpperCase().codeUnitAt(0) - 0x30;
-       if (p > 9) p = p - 7;
-       i++;
-       q = s[i].toUpperCase().codeUnitAt(0) - 0x30;
-       if (q > 9) q = q - 7;
-       ol.add(p * 16 + q);
-     }
-     else { ol.add(s[i].codeUnitAt(0));
-     }
-   }
-  return UTF8.decode(ol);
-}
-
-// URL encoder encodes string into url encoded utf-8 bytes
-// Use this method to encode cookie string
-// or to write URL encoded byte data into OutputStream
-List<int> urlEncode(String s) {
-  int i, p, q;
-  var ol = new List<int>();
-  List<int> il = UTF8.encode(s);
-  for (i = 0; i < il.length; i++) {
-    if (il[i] == 0x20) { ol.add(0x2b);  // convert sp to +
-    } else if (il[i] == 0x2a || il[i] == 0x2d || il[i] == 0x2e || il[i] == 0x5f) { ol.add(il[i]);  // do not convert
-    } else if (((il[i] >= 0x30) && (il[i] <= 0x39)) || ((il[i] >= 0x41) && (il[i] <= 0x5a)) || ((il[i] >= 0x61) && (il[i] <= 0x7a))) { ol.add(il[i]);
-    } else { // '%' shift
-      ol.add(0x25);
-      ol.add((il[i] ~/ 0x10).toRadixString(16).codeUnitAt(0));
-      ol.add((il[i] & 0xf).toRadixString(16).codeUnitAt(0));
-    }
-  }
-  return ol;
-}
-
-// To test functions urlEncode and urlDecode, replace main() with:
-/*
-void main() {
-  String s = "√2 is 1.414";
-  // will be encoded as : %E2%88%9A2+is+1.414
-  List encodedList = urlEncode(s);
-  String encodedString = new String.fromCharCodes(encodedList);
-  print("URL encoded string : $encodedString");
-  String decodedString = urlDecode(encodedString);
-  print("URL decoded string : $decodedString");
-}
-*/
