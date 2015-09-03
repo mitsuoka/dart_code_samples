@@ -32,7 +32,7 @@ final LOG_REQUESTS = false;
 void main() {
   HttpServer.bind(HOST, PORT)
   .then((HttpServer server) {
-    server.autoCompress = true; // compression test
+    server.autoCompress = true; // set false to disable compressed body transmission
     server.listen(
         (HttpRequest request) {
           request.response.done.then((d){
