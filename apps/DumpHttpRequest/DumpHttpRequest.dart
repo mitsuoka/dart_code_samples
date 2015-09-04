@@ -104,7 +104,7 @@ String createHtmlResponse(HttpRequest request, List<int> bodyBytes) {
 
 // create log message
 StringBuffer createLogMessage(HttpRequest request, [List<int> bodyBytes]) {
-  var sb = new StringBuffer( '''request.headers.host : ${request.headers.host}
+  var sb = new StringBuffer('''request.headers.host : ${request.headers.host}
 request.headers.port : ${request.headers.port}
 request.connectionInfo.localPort : ${request.connectionInfo.localPort}
 request.connectionInfo.remoteAddress : ${request.connectionInfo.remoteAddress}
@@ -119,17 +119,17 @@ request.uri.path : ${request.uri.path}
 request.uri.query : ${request.uri.query}
 request.uri.queryParameters :
 ''');
-  request.uri.queryParameters.forEach((key, value){
+  request.uri.queryParameters.forEach((key, value) {
     sb.write("  ${key} : ${value}\n");
   });
   sb.write('''request.cookies :
 ''');
-  request.cookies.forEach((value){
+  request.cookies.forEach((value) {
     sb.write("  ${value.toString()}\n");
   });
   sb.write('''request.headers.expires : ${request.headers.expires}
 request.headers :''');
-  request.headers.forEach((name,values){
+  request.headers.forEach((name, values) {
     sb.write('\n  $name :');
     values.forEach((value) {
       sb.write(' $value');
@@ -141,16 +141,36 @@ requset.session.isNew : ${request.session.isNew}
 ''');
   if (request.method == "POST") {
     var enctype = request.headers["content-type"][0];
-    if (enctype.contains("text")) { // UTF8 encoded text/plain
+    if (enctype.contains("text")) {
+      // UTF8 encoded text/plain
       sb.write("request body string (text/plain) : ${UTF8.decode(bodyBytes)}");
-    } else if (enctype.contains("urlencoded")) { // URL encoded
+    } else if (enctype.contains("urlencoded")) {
+      // URL encoded
       sb.write("request body string (URL decoded): "
-        + Uri.decodeQueryComponent(UTF8.decode(bodyBytes)));
+      + Uri.decodeQueryComponent(UTF8.decode(bodyBytes)));
+    } else {
+      sb.write("request body string (as ASCII bytes): "
+      + bytesToAscii(bodyBytes).toString());
     }
   }
   sb.write("\n");
   return sb;
 }
+
+  // convert List<int> data into printable ASCII string
+  //  unreadable characters are replaced with '?'
+  StringBuffer bytesToAscii(List<int> bytes) {
+    var sb = new StringBuffer();
+    int b;
+    for (int i = 0; i < bytes.length; i++) {
+      b = bytes[i];
+      if (b >= 0x7f || b <= 0x1f) b = 0x3f; // unreadable
+      if (bytes[i] == 0x0a) b = 0x0a; // LF
+      if (bytes[i] == 0x0d) b = 0x0d; // CR
+      sb.writeCharCode(b);
+    }
+    return sb;
+  }
 
 // make safe string buffer data as HTML text
 StringBuffer makeSafe(StringBuffer b) {
