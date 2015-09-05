@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:convert'; // Sept. 30 2013, added this new library
-import 'dart:async';
 final fileName = 'testData.txt';
 final String testData = '''安倍晋三首相は２６日午前、政権発足から３カ月を迎えたことについて、
   「今までと同じように結果を出していくことに全力を尽くしていきたい」と述べた。''';
