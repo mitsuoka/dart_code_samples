@@ -106,7 +106,7 @@ class Example {
 }
 
 void main() {
-  OptionsFile options = new OptionsFile('connection.options');
+  OptionsFile options = new OptionsFile('bin/connection.options');
   String user = options.getString('user');
   String password = options.getString('password');
   int port = options.getInt('port', 3306);
