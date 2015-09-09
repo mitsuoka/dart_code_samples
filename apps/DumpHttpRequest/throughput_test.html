@@ -1,0 +1,26 @@
+<!--
+  Send HTTP test request to the throughput_test server
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title>Throughput Test</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+
+<body style="font-size: 12pt">
+<H1>Specify the process time in Sec.</H1>
+<br>
+<form method="get" action="http://localhost:8080/throughput">
+    <!--
+    replace the upper line with :
+    <form method="get" action="http://localhost:12345/throughput">
+    to interpose the simple_proxy
+     -->
+    <textarea rows="1" cols="5" name="pause" style ="font-family: sans-serif; font-size: 20pt"></textarea>
+    <input type="submit" value=" Send ">
+</form>
+</body>
+
+</html>
