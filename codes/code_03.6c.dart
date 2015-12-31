@@ -1,5 +1,5 @@
-Function adder(num n) {
-  return (num i) => n + i; // 関数を返す関数定義
+Function adder(num addBy) {
+  return (num i) => addBy + i; // 関数を返す関数定義
 }
 
 main() {
