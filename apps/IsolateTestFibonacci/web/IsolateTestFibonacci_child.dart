@@ -4,6 +4,7 @@
  * child isolate using spawnUri. childIsolate in the previous
  *  IsolateTestFibonacci.dart was separated into this file.
  * November 2013, by Terry
+ * January 2015, bug fixed
  */
 
 import 'dart:isolate';
@@ -12,6 +13,9 @@ import 'dart:isolate';
 final CONNECTING = 1;
 final CONNECTED = 2;
 final STOPPED = 3;
+
+// message queue
+var logMessages = [];
 
 void main(List<String> args, SendPort port) {
   new ChildIsolate().start(port);
@@ -58,7 +62,8 @@ class ChildIsolate {
       stopwatch.stop;
       log('child finished Fib(${i}) = ${y} in ${stopwatch.elapsedMilliseconds}mS');
     }
-    else if (msg == 'quit') { // close command
+    else if (msg == 'quit') { // on close command
+      for (var m in logMessages) sendPort.send(m); // send queued messages
       status = STOPPED;
       receivePort.close();
       log('child closed it\'s receive port');
@@ -68,7 +73,9 @@ class ChildIsolate {
   // return log to the parent
   void log(String msg) {
     String timestamp = new DateTime.now().toString().substring(11);
-    sendPort.send('$timestamp : $msg');  // child can not call print() method
+    msg = '$timestamp : $msg';
+    print(msg);  // for JS console
+    logMessages.add(msg);
   }
 
   // Fibonacci function
