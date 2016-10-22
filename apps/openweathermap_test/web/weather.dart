@@ -5,6 +5,7 @@ import 'dart:async';
 final LOG_REQUESTS = true;
 const host = 'api.openweathermap.org/data/2.5';
 final int numberOfDays = 3;
+final APPID = '1a1a27e8eccf4158d52c5763415c8121';
 
 void main() {
   SelectElement smenu = document.getElementById("selectMenu");
@@ -28,12 +29,12 @@ void onRequested(String cityCode){
 }
 
 Future<Map> loadCurrent(String cityCode){
-  var url = 'http://${host}/weather?id=${cityCode}';
+  var url = 'http://${host}/weather?id=${cityCode}&APPID=$APPID';
   return loadData(url);
 }
 
 Future<Map> loadForecast(String cityCode){
-  var url = 'http://${host}/forecast/daily?id=${cityCode}&units=metric&cnt=$numberOfDays';
+  var url = 'http://${host}/forecast/daily?id=${cityCode}&units=metric&cnt=${numberOfDays}&APPID=$APPID';
   return loadData(url);
 }
 
